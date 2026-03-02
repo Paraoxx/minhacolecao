@@ -279,10 +279,10 @@ export function Home() {
                             setHeaderSearch("");
                         }}
                     >
-                        <h1 className="text-2xl md:text-3xl font-extrabold italic text-white tracking-tighter drop-shadow-[4px_4px_0_#dc2626] group-hover:text-red-500 transition-colors">
+                        <h1 className="text-xl md:text-2xl font-bold italic text-white tracking-tighter drop-shadow-[4px_4px_0_#dc2626] group-hover:text-red-500 transition-colors">
                             MINHA COLEÇÃO
                         </h1>
-                        <p className="text-white bg-black px-2 mt-2 w-max text-[10px] sm:text-xs uppercase font-bold tracking-widest shadow-[2px_2px_0_#dc2626]">
+                        <p className="text-white bg-black px-2 mt-2 w-max text-[9px] sm:text-[10px] uppercase font-bold tracking-widest shadow-[2px_2px_0_#dc2626]">
                             Phantom Thieves
                         </p>
                     </div>
