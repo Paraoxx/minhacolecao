@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+  --color-anime-bg: #151822;
+  --color-anime-card: rgba(25, 25, 35, 0.6);
+  --color-anime-border: rgba(255, 255, 255, 0.08);
+  --color-anime-accent: #f43f5e;
+  --color-anime-glow: rgba(244, 63, 94, 0.4);
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --background: var(--color-anime-bg);
+    --foreground: #f8fafc;
+  }
+
+  body {
+    @apply bg-[#0B0E14] text-white m-0 p-0 antialiased min-h-screen selection:bg-anime-accent selection:text-white;
+  }
+}
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}

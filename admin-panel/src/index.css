@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  --color-anime-bg: #121212;
+  --color-anime-accent: #ff2a2a;
+}
+
+@layer base {
+  body {
+    @apply bg-anime-bg text-white font-sans antialiased selection:bg-anime-accent selection:text-white;
+  }
+}
+
+/* Custom Scrollbar for Edge/Chrome */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #dc2626;
+}

@@ -1,0 +1,236 @@
+{
+  "notifications": [],
+  "users": [
+    {
+      "id": "1772402699207",
+      "nickname": "Paraox",
+      "senha": "retyro17",
+      "telefone": "66996802518"
+    },
+    {
+      "id": "1772402813882",
+      "nickname": "bruno",
+      "senha": "retyro17",
+      "telefone": "(66) 996802518"
+    }
+  ],
+  "global_figures": [
+    {
+      "id": "1772353795272",
+      "title": "Steins;Gate - Makise Kurisu - 1/8 (Good Smile Company)",
+      "series": "Steins;Gate",
+      "character": "Makise Kurisu",
+      "company": "Good Smile Company",
+      "dimensions": "1/8  H=210mm (8.19in, 1:1=1.68m)",
+      "images": [
+        "https://static.myfigurecollection.net/upload/items/2/78589-bb7f9.jpg",
+        "https://static.myfigurecollection.net/upload/pictures/2011/09/15/276344.jpeg"
+      ],
+      "category": "Figures",
+      "details": {
+        "fabricante": "Good Smile Company",
+        "escala": "1/8  H=210mm (8.19in, 1:1=1.68m)",
+        "serie": "Steins;Gate"
+      }
+    },
+    {
+      "id": "1772389563516",
+      "title": "No Game No Life - Shiro - 1/7 (Kotobukiya)",
+      "series": "No Game No Life",
+      "character": "Shiro",
+      "company": "Kotobukiya ",
+      "dimensions": "1/7  H=155mm (6.05in, 1:1=1.09m)",
+      "images": [
+        "https://static.myfigurecollection.net/upload/items/2/218050-e77c9.jpg",
+        "https://static.myfigurecollection.net/upload/pictures/2014/10/24/1127790.jpeg"
+      ],
+      "category": "Figures",
+      "details": {
+        "fabricante": "Kotobukiya ",
+        "escala": "1/7  H=155mm (6.05in, 1:1=1.09m)",
+        "serie": "No Game No Life"
+      }
+    }
+  ],
+  "my_collection": [
+    {
+      "id": "1",
+      "title": "Terraria",
+      "category": "Jogos",
+      "imageUrl": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/105600/header.jpg",
+      "acquisitionDate": "2023-11-05",
+      "isWishlist": false,
+      "details": {
+        "plataforma": "PC",
+        "status": "Lançado",
+        "formato": "Digital"
+      }
+    },
+    {
+      "id": "2",
+      "title": "Stardew Valley",
+      "category": "Jogos",
+      "imageUrl": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/413150/header.jpg",
+      "acquisitionDate": "2021-08-12",
+      "isWishlist": false,
+      "details": {
+        "plataforma": "PC, Consoles",
+        "status": "Lançado",
+        "formato": "Digital"
+      }
+    },
+    {
+      "id": "3",
+      "title": "Hollow Knight",
+      "category": "Jogos",
+      "imageUrl": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/367520/header.jpg",
+      "acquisitionDate": "2022-03-22",
+      "isWishlist": false,
+      "details": {
+        "plataforma": "PC, Switch",
+        "status": "Lançado",
+        "formato": "Digital"
+      }
+    },
+    {
+      "id": "4",
+      "title": "Jiban",
+      "category": "Figures",
+      "imageUrl": "https://images.unsplash.com/photo-1599409636295-e3aece77b310?q=80&w=800&auto=format&fit=crop",
+      "acquisitionDate": "2020-05-18",
+      "isWishlist": false,
+      "details": {
+        "escala": "1/6",
+        "serie": "Kidou Keiji Jiban"
+      }
+    },
+    {
+      "id": "5",
+      "title": "Cybercop",
+      "category": "Figures",
+      "imageUrl": "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?q=80&w=800&auto=format&fit=crop",
+      "acquisitionDate": "2021-10-30",
+      "isWishlist": false,
+      "details": {
+        "escala": "1/10",
+        "serie": "Dennou Keisatsu Cybercop"
+      }
+    },
+    {
+      "id": "9",
+      "title": "One Piece Vol. 1",
+      "category": "Mangás",
+      "imageUrl": "https://images.unsplash.com/photo-1608514660098-98e3b08e50bc?q=80&w=800&auto=format&fit=crop",
+      "acquisitionDate": "2021-02-28",
+      "isWishlist": false,
+      "details": {
+        "volume": "1",
+        "editora": "Panini"
+      }
+    },
+    {
+      "id": "10",
+      "title": "Naruto Vol. 1",
+      "category": "Mangás",
+      "imageUrl": "https://images.unsplash.com/photo-1578335502573-45ee9bd90e8f?q=80&w=800&auto=format&fit=crop",
+      "acquisitionDate": "2020-07-20",
+      "isWishlist": false,
+      "details": {
+        "volume": "1",
+        "editora": "Panini"
+      }
+    },
+    {
+      "id": "11",
+      "title": "Bleach Vol. 1",
+      "category": "Mangás",
+      "imageUrl": "https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?q=80&w=800&auto=format&fit=crop",
+      "acquisitionDate": "2022-09-09",
+      "isWishlist": false,
+      "details": {
+        "volume": "1",
+        "editora": "Panini"
+      }
+    },
+    {
+      "id": "12",
+      "title": "Elden Ring",
+      "category": "Jogos",
+      "imageUrl": "https://images.unsplash.com/photo-1605901309584-818e25960b8f?q=80&w=800&auto=format&fit=crop",
+      "acquisitionDate": "2022-02-25",
+      "isWishlist": false,
+      "details": {
+        "plataforma": "PS5",
+        "status": "Lançado",
+        "formato": "Físico"
+      }
+    },
+    {
+      "id": "13",
+      "title": "Luffy Monkey D.",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/9/310307.jpg",
+      "category": "Figures",
+      "status": "Backlog",
+      "score": null,
+      "isWishlist": false
+    },
+    {
+      "id": "14",
+      "title": "Re:Zero Kara Hajimeru Isekai Seikatsu - Rem - 1/7 (Good Smile Company)",
+      "imageUrl": "https://static.myfigurecollection.net/upload/items/2/464666-66689.jpg",
+      "category": "Figures",
+      "status": "Backlog",
+      "score": null,
+      "isWishlist": false,
+      "details": {
+        "fabricante": "Good Smile Company"
+      }
+    },
+    {
+      "id": "15",
+      "title": "Monogatari Series - Hanekawa Tsubasa - Fig-Cube - Konami Prize Collection (Konami Amusement)",
+      "imageUrl": "https://static.myfigurecollection.net/upload/items/2/2679311-54914.jpg",
+      "category": "Figures",
+      "status": "Backlog",
+      "score": null,
+      "isWishlist": false,
+      "details": {
+        "fabricante": "Konami Amusement "
+      }
+    },
+    {
+      "id": "16",
+      "title": "Suiton Kikou",
+      "imageUrl": "https://cdn.myanimelist.net/images/manga/3/223777.jpg",
+      "images": [
+        "https://cdn.myanimelist.net/images/manga/3/223777.jpg"
+      ],
+      "category": "Mangás",
+      "status": "Backlog",
+      "score": null,
+      "isWishlist": false
+    },
+    {
+      "id": "17",
+      "title": "Shiro's Dungeon",
+      "imageUrl": "https://media.rawg.io/media/screenshots/75b/75b54d6c01e389fafa2fe617f4369f7d.jpg",
+      "images": [
+        "https://media.rawg.io/media/screenshots/75b/75b54d6c01e389fafa2fe617f4369f7d.jpg"
+      ],
+      "category": "Jogos",
+      "status": "Backlog",
+      "score": null,
+      "isWishlist": false,
+      "format": "Digital",
+      "dateAdded": "2026-03-01T18:27:21.010Z"
+    }
+  ],
+  "banners": [
+    {
+      "id": "banner_persona_01",
+      "url": "https://media.rawg.io/media/games/b11/b115b2bc6a5957a917bc7601f4abdda2.jpg",
+      "title": "Persona 5 - Phantom Thieves (Ultrawide)"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
