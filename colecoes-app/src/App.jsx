@@ -4,12 +4,32 @@ import { AppLayout } from "./components/AppLayout"
 import { Home } from "./pages/Home"
 import { Gallery } from "./pages/Gallery"
 import { AuthView } from "./components/AuthView"
-
+import { Settings } from "./pages/Settings"
 function App() {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(() => {
+    const saved = localStorage.getItem('currentUser');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        return null; // Handle potential JSON parse errors safely
+      }
+    }
+    return null;
+  });
+
+  const handleLoginSuccess = (user) => {
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    setCurrentUser(user);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('currentUser');
+    setCurrentUser(null);
+  };
 
   if (!currentUser) {
-    return <AuthView onLoginSuccess={setCurrentUser} />;
+    return <AuthView onLoginSuccess={handleLoginSuccess} />;
   }
 
   return (
@@ -19,7 +39,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/collections" element={<Gallery />} />
           <Route path="/categories" element={<div className="p-8 text-2xl font-bold">Categories Placeholder</div>} />
-          <Route path="/settings" element={<div className="p-8 text-2xl font-bold">Settings Placeholder</div>} />
+          <Route path="/settings" element={<Settings onLogout={handleLogout} />} />
         </Route>
       </Routes>
     </BrowserRouter>
