@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Gallery } from "./Gallery"
 import { Plus, Search, Bell } from "lucide-react";
+import toast from 'react-hot-toast';
 
 export function Home() {
     const [items, setItems] = useState([]);
@@ -742,7 +743,22 @@ export function Home() {
                                 <div className="h-1 w-24 bg-red-600 mt-1 shadow-[2px_2px_0_#fff]" />
                             </div>
 
-                            <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); alert("Profile updated!"); }}>
+                            <form className="space-y-6" onSubmit={(e) => {
+                                e.preventDefault();
+                                toast.success('Your details were saved. View your profile.', {
+                                    style: {
+                                        background: '#16a34a', // Verde clássico de sucesso do Tailwind
+                                        color: '#fff',
+                                        fontWeight: 'bold',
+                                        padding: '16px',
+                                    },
+                                    iconTheme: {
+                                        primary: '#fff',
+                                        secondary: '#16a34a',
+                                    },
+                                    duration: 4000,
+                                });
+                            }}>
                                 <div className="flex flex-col gap-2">
                                     <label className="text-sm font-bold uppercase tracking-widest text-gray-400">Alterar Nickname</label>
                                     <input

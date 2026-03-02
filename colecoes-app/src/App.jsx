@@ -5,6 +5,7 @@ import { Home } from "./pages/Home"
 import { Gallery } from "./pages/Gallery"
 import { AuthView } from "./components/AuthView"
 import { Settings } from "./pages/Settings"
+import { Toaster } from 'react-hot-toast'
 function App() {
   const [currentUser, setCurrentUser] = useState(() => {
     const saved = localStorage.getItem('currentUser');
@@ -34,6 +35,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <Toaster position="top-center" />
       <Routes>
         <Route element={<AppLayout />}>
           <Route path="/" element={<Home />} />
