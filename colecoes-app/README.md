@@ -2,8 +2,22 @@
 
 Repositório de gerenciador de coleções. 
 Projeto para catalogar coleções fisicas e digitais.
-
 O sistema é dividido em 3 partes. 
+
+## Tecnologias
+O Projeto foi desenvolvido com as seguintes tecnologias:
+JavaScript
+React.js
+Node.js
+Vite
+JSON Server
+É necessário ter o node.js instalado no computador para rodar o projeto.
+
+É necessário ter o json-server instalado globalmente no computador para rodar o projeto.
+
+Também precisa ter git no computador para pegar o projeto
+Necessário Instalar o React, Vite e JSON server.
+
 ## Como rodar o projeto
 
 Você vai precisar abrir **3 terminais diferentes** no seu VSCode, Antigravity ou qualquer outro editor de código. Cada um vai rodar uma parte da aplicação.
