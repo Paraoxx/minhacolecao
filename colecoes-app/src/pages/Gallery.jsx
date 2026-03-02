@@ -156,8 +156,8 @@ export function Gallery() {
                                 <ItemCard
                                     item={item}
                                     onClick={() => {
-                                        if (item.category === 'Mangás' && item.mal_id) {
-                                            navigate(`/my-collection/manga/${item.mal_id}`);
+                                        if (item.category === 'Mangás' && item.id) {
+                                            navigate(`/my-collection/manga/${item.id}`);
                                         } else {
                                             setSelectedItem(item);
                                         }
@@ -221,8 +221,8 @@ export function Gallery() {
                                         transition={{ delay: index * 0.05 }}
                                         className="border-b border-anime-border/30 hover:bg-white/5 transition-colors group cursor-pointer"
                                         onClick={() => {
-                                            if (item.category === 'Mangás' && item.mal_id) {
-                                                navigate(`/my-collection/manga/${item.mal_id}`);
+                                            if (item.category === 'Mangás' && item.id) {
+                                                navigate(`/my-collection/manga/${item.id}`);
                                             } else {
                                                 setSelectedItem(item);
                                             }

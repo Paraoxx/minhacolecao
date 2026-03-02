@@ -10,10 +10,10 @@ export default function MyMangaDetails() {
     useEffect(() => {
         const fetchManga = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/collection?mal_id=${id}`);
-                const data = await response.json();
-                if (data && data.length > 0) {
-                    setManga(data[0]);
+                const response = await fetch(`http://localhost:3000/my_collection/${id}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setManga(data);
                 } else {
                     setManga(null);
                 }
