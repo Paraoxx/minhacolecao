@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { UserManagement } from './components/UserManagement';
 import { BannerManagement } from './components/BannerManagement';
+import { SendNotification } from './components/SendNotification';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -219,6 +220,15 @@ function App() {
           >
             GERENCIAR BANNERS
           </button>
+          <button
+            onClick={() => setActiveView('notifications')}
+            className={`flex-1 py-3 font-black uppercase tracking-widest text-sm transition-all border-2 ${activeView === 'notifications'
+              ? 'bg-red-600 text-white border-red-600 shadow-[4px_4px_0_#fff]'
+              : 'bg-black text-gray-400 border-slate-700 hover:border-red-400'
+              }`}
+          >
+            NOTIFICAÇÕES
+          </button>
         </div>
 
         {activeView === 'figures' ? (
@@ -346,8 +356,10 @@ function App() {
           </>
         ) : activeView === 'users' ? (
           <UserManagement />
-        ) : (
+        ) : activeView === 'banners' ? (
           <BannerManagement />
+        ) : (
+          <SendNotification />
         )}
       </div>
     </div >

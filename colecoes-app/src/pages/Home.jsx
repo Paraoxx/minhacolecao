@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Gallery } from "./Gallery"
-import { Plus, Search, Bell } from "lucide-react";
+import { Gallery } from "./Gallery"
+import { Plus, Search, Bell, Check } from "lucide-react";
 import toast from 'react-hot-toast';
 
 export function Home() {
@@ -29,12 +30,39 @@ export function Home() {
     const [notifications, setNotifications] = useState([]);
     const [showNotifications, setShowNotifications] = useState(false);
 
-    useEffect(() => {
+    const fetchNotifications = () => {
         fetch("http://localhost:3000/notifications")
             .then(res => res.json())
-            .then(data => setNotifications(data))
+            .then(data => {
+                // Sort by date descending (newest first)
+                const sorted = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+                setNotifications(sorted);
+            })
             .catch(err => console.error("Erro ao buscar notificações", err));
+    };
+
+    useEffect(() => {
+        fetchNotifications();
     }, []);
+
+    const handleMarkAsRead = async (e, id) => {
+        e.stopPropagation(); // Previne fechar o modal ou outro clique indesejado
+        try {
+            const response = await fetch(`http://localhost:3000/notifications/${id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ read: true })
+            });
+            if (response.ok) {
+                // Atualiza o estado local para refletir a mudança imediatamente
+                setNotifications(prev => prev.map(n => n.id === id ? { ...n, read: true } : n));
+            }
+        } catch (error) {
+            console.error("Erro ao marcar notificação como lida:", error);
+        }
+    };
+
+    const unreadCount = notifications.filter(n => !n.read).length;
 
     // Modal states for Adding Items via Jikan API
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -317,26 +345,53 @@ export function Home() {
                                 className="relative p-2 text-white hover:text-red-500 transition-colors bg-slate-800 rounded-full border border-slate-700"
                             >
                                 <Bell size={20} />
-                                {notifications.length > 0 && (
-                                    <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-600 border border-slate-900 rounded-full"></span>
+                                {unreadCount > 0 && (
+                                    <span className="absolute -top-1 -right-1 flex items-center justify-center w-4 h-4 text-[9px] font-bold text-white bg-red-600 border border-slate-900 rounded-full">
+                                        {unreadCount > 9 ? '9+' : unreadCount}
+                                    </span>
                                 )}
                             </button>
 
                             {/* Dropdown */}
                             {showNotifications && (
-                                <div className="absolute right-0 top-full mt-2 w-72 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl z-50 overflow-hidden transform skew-x-0">
-                                    <div className="p-3 border-b border-slate-800 bg-black/40">
+                                <div className="absolute right-0 top-full mt-2 w-80 bg-zinc-900 border border-zinc-700 rounded-lg shadow-2xl z-50 overflow-hidden transform skew-x-0">
+                                    <div className="p-3 border-b border-zinc-700 bg-zinc-800 flex justify-between items-center">
                                         <h3 className="text-sm font-bold text-white uppercase tracking-widest">Notificações</h3>
+                                        <span className="text-xs text-gray-400 font-bold">{unreadCount} não lidas</span>
                                     </div>
-                                    <div className="max-h-60 overflow-y-auto custom-scrollbar">
+                                    <div className="max-h-80 overflow-y-auto custom-scrollbar bg-zinc-900">
                                         {notifications.length === 0 ? (
-                                            <p className="text-slate-500 text-xs font-medium p-4 text-center">Nenhuma novidade por enquanto.</p>
+                                            <p className="text-zinc-500 text-xs font-medium p-4 text-center">Nenhuma novidade por enquanto.</p>
                                         ) : (
-                                            notifications.map((notif, idx) => (
-                                                <div key={idx} className="p-3 border-b border-slate-800 hover:bg-slate-800/50 transition-colors cursor-pointer">
-                                                    <p className="text-white text-sm font-bold">{notif.title}</p>
-                                                    <p className="text-slate-400 text-xs mt-1">{notif.message}</p>
-                                                    <span className="text-slate-600 text-[10px] uppercase font-bold tracking-widest mt-2 block">{notif.date}</span>
+                                            notifications.map((notif) => (
+                                                <div
+                                                    key={notif.id}
+                                                    className={`p-4 border-b border-zinc-800 flex items-start gap-3 transition-colors ${!notif.read ? 'bg-zinc-800/80 hover:bg-zinc-800' : 'opacity-70 hover:opacity-100 hover:bg-zinc-800/50'}`}
+                                                >
+                                                    <div className="flex-1 min-w-0">
+                                                        <div className="flex justify-between items-start mb-1">
+                                                            <p className={`text-sm font-bold truncate pr-2 ${!notif.read ? 'text-white' : 'text-gray-300'}`}>
+                                                                {notif.title}
+                                                            </p>
+                                                            <span className="text-zinc-500 text-[10px] uppercase font-bold tracking-widest shrink-0 mt-0.5">
+                                                                {new Date(notif.date).toLocaleDateString('pt-BR')}
+                                                            </span>
+                                                        </div>
+                                                        <p className="text-zinc-400 text-xs leading-relaxed break-words">{notif.message}</p>
+                                                    </div>
+
+                                                    <button
+                                                        onClick={(e) => !notif.read && handleMarkAsRead(e, notif.id)}
+                                                        disabled={notif.read}
+                                                        className="shrink-0 mt-1 cursor-pointer disabled:cursor-default outline-none"
+                                                        title={notif.read ? "Lida" : "Marcar como lida"}
+                                                    >
+                                                        <Check
+                                                            size={18}
+                                                            strokeWidth={3}
+                                                            className={`transition-colors ${!notif.read ? 'text-blue-500 hover:text-blue-400' : 'text-zinc-600'}`}
+                                                        />
+                                                    </button>
                                                 </div>
                                             ))
                                         )}
