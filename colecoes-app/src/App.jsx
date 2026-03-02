@@ -5,6 +5,7 @@ import { Home } from "./pages/Home"
 import { Gallery } from "./pages/Gallery"
 import { AuthView } from "./components/AuthView"
 import { Settings } from "./pages/Settings"
+import { MangaDetails } from "./pages/MangaDetails"
 import { Toaster } from 'react-hot-toast'
 function App() {
   const [currentUser, setCurrentUser] = useState(() => {
@@ -40,6 +41,7 @@ function App() {
         <Route element={<AppLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/collections" element={<Gallery />} />
+          <Route path="/manga/:id" element={<MangaDetails />} />
           <Route path="/categories" element={<div className="p-8 text-2xl font-bold">Categories Placeholder</div>} />
           <Route path="/settings" element={<Settings onLogout={handleLogout} />} />
         </Route>

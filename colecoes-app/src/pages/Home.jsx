@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useNavigate } from "react-router-dom"
 import { Gallery } from "./Gallery"
 import { Plus, Search, Bell, Check } from "lucide-react";
 import toast from 'react-hot-toast';
 
 export function Home() {
+    const navigate = useNavigate();
     const [items, setItems] = useState([]);
     const [activeTab, setActiveTab] = useState("Database");
 
@@ -509,7 +511,7 @@ export function Home() {
                                             {mangaResults.length > 0 ? mangaResults.map(item => (
                                                 <div
                                                     key={`res-manga-${item.id}`}
-                                                    onClick={() => setSelectedDetailsItem(item)}
+                                                    onClick={() => navigate(`/manga/${item.mal_id || item.id}`)}
                                                     className="group relative bg-slate-800 border-2 border-transparent hover:border-red-600 transition-all cursor-pointer transform hover:-translate-y-2 hover:shadow-[8px_8px_0_#dc2626] skew-x-0"
                                                 >
                                                     <div className="aspect-[3/4] overflow-hidden">
@@ -946,7 +948,14 @@ export function Home() {
                                                 <p className="text-xs text-gray-500 mt-1">{item.subtitle}</p>
                                             </div>
                                             <button
-                                                onClick={() => setSelectedDetailsItem(item)}
+                                                onClick={() => {
+                                                    if (searchCategory === 'Mangás') {
+                                                        navigate(`/manga/${item.mal_id || item.id}`);
+                                                        setIsModalOpen(false);
+                                                    } else {
+                                                        setSelectedDetailsItem(item);
+                                                    }
+                                                }}
                                                 className="shrink-0 bg-red-600 hover:bg-red-500 text-white px-3 py-2 text-xs font-bold uppercase tracking-widest transition-colors transform skew-x-2 cursor-pointer"
                                                 style={{ clipPath: "polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%)" }}
                                             >

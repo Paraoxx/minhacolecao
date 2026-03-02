@@ -1,5 +1,13 @@
 {
-  "notifications": [],
+  "notifications": [
+    {
+      "id": "e8a6",
+      "title": "Bem vindo",
+      "message": "Primeira mensagem de atualização.",
+      "date": "2026-03-02T21:07:33.193Z",
+      "read": true
+    }
+  ],
   "users": [
     {
       "id": "1772402699207",
