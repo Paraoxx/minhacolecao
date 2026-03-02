@@ -9,6 +9,42 @@ export function MangaDetails() {
     const [manga, setManga] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [selectedVolumes, setSelectedVolumes] = useState([]);
+    const [volumeCovers, setVolumeCovers] = useState({});
+
+    useEffect(() => {
+        if (!manga?.title) return;
+
+        const fetchCovers = async () => {
+            try {
+                // Passo 1: Achar o ID do MangaDex pelo título
+                const searchRes = await fetch(`https://api.mangadex.org/manga?title=${encodeURIComponent(manga.title)}&limit=1`);
+                const searchData = await searchRes.json();
+                const mdId = searchData.data?.[0]?.id;
+
+                if (!mdId) return; // Se não achar correspondência, aborta silenciosamente
+
+                // Passo 2: Puxar as capas vinculadas a esse ID
+                const coverRes = await fetch(`https://api.mangadex.org/cover?manga[0]=${mdId}&limit=100`);
+                const coverData = await coverRes.json();
+
+                // Passo 3: Mapear o volume (chave) para a URL da imagem (valor)
+                const coversMap = {};
+                coverData.data.forEach(cover => {
+                    const vol = cover.attributes.volume;
+                    const fileName = cover.attributes.fileName;
+                    if (vol && !coversMap[vol]) {
+                        coversMap[vol] = `https://uploads.mangadex.org/covers/${mdId}/${fileName}`;
+                    }
+                });
+
+                setVolumeCovers(coversMap);
+            } catch (error) {
+                console.error("Erro ao buscar capas no MangaDex:", error);
+            }
+        };
+
+        fetchCovers();
+    }, [manga?.title]);
 
     useEffect(() => {
         setIsLoading(true);
@@ -201,11 +237,22 @@ export function MangaDetails() {
                                     `}
                                     style={{ clipPath: "polygon(4% 0%, 100% 0%, 96% 100%, 0% 100%)" }}
                                 >
-                                    <img
-                                        src={manga.images.jpg.large_image_url}
-                                        alt={`Volume ${volNum}`}
-                                        className={`w-full h-full object-cover transition-all duration-300 ${isSelected ? 'brightness-50 grayscale-[30%]' : 'group-hover:brightness-75'}`}
-                                    />
+                                    {volumeCovers[volNum] ? (
+                                        <img
+                                            src={volumeCovers[volNum]}
+                                            alt={`Volume ${volNum}`}
+                                            className={`w-full h-full object-cover transition-all duration-300 ${isSelected ? 'brightness-50 grayscale-[30%]' : 'group-hover:brightness-75'}`}
+                                        />
+                                    ) : (
+                                        <div className="w-full h-full bg-zinc-800 flex items-center justify-center">
+                                            <img
+                                                src={manga.images.jpg.large_image_url}
+                                                alt={`Volume ${volNum} Placeholder`}
+                                                className={`absolute inset-0 w-full h-full object-cover opacity-20 transition-all duration-300 ${isSelected ? 'brightness-50 grayscale-[30%]' : 'group-hover:brightness-50'}`}
+                                            />
+                                            <span className="text-zinc-500 font-bold uppercase tracking-widest z-10 text-center transform -skew-x-6 text-xs drop-shadow-[1px_1px_0_#000]">Sem Capa</span>
+                                        </div>
+                                    )}
 
                                     {/* Unselected Badge */}
                                     {!isSelected && (
