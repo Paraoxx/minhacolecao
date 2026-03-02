@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { Filter, RefreshCw } from "lucide-react";
 import { ItemCard } from "../components/ItemCard";
 import { ItemDetails } from "../components/ItemDetails";
@@ -13,6 +14,7 @@ export function Gallery() {
     const [selectedItem, setSelectedItem] = useState(null);
     const [items, setItems] = useState([]);
     const dropdownRef = useRef(null);
+    const navigate = useNavigate();
 
     // Fetch items from json-server
     useEffect(() => {
@@ -153,7 +155,13 @@ export function Gallery() {
                             >
                                 <ItemCard
                                     item={item}
-                                    onClick={() => setSelectedItem(item)}
+                                    onClick={() => {
+                                        if (item.category === 'Mangás' && item.mal_id) {
+                                            navigate(`/my-collection/manga/${item.mal_id}`);
+                                        } else {
+                                            setSelectedItem(item);
+                                        }
+                                    }}
                                 />
                             </motion.div>
                         ))}
@@ -212,7 +220,13 @@ export function Gallery() {
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ delay: index * 0.05 }}
                                         className="border-b border-anime-border/30 hover:bg-white/5 transition-colors group cursor-pointer"
-                                        onClick={() => setSelectedItem(item)}
+                                        onClick={() => {
+                                            if (item.category === 'Mangás' && item.mal_id) {
+                                                navigate(`/my-collection/manga/${item.mal_id}`);
+                                            } else {
+                                                setSelectedItem(item);
+                                            }
+                                        }}
                                     >
                                         <td className="p-4 font-bold text-white group-hover:text-red-500 transition-colors uppercase">
                                             {item.title}

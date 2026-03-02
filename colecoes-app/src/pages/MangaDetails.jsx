@@ -64,29 +64,54 @@ export function MangaDetails() {
             return;
         }
 
-        // Simulating save logic - ideally this would loop and POST for each selected volume, or POST reading progress
-        toast.promise(
-            new Promise(resolve => setTimeout(resolve, 1000)),
-            {
-                loading: 'Salvando volumes na coleção...',
-                success: 'Volumes adicionados com sucesso ao seu Database!',
-                error: 'Erro ao salvar volumes.',
-            },
-            {
-                style: {
-                    background: '#16a34a',
-                    color: '#fff',
-                    fontWeight: 'bold',
-                },
-                iconTheme: {
-                    primary: '#fff',
-                    secondary: '#16a34a',
-                },
+        try {
+            // Check if manga exists in my_collection
+            const checkRes = await fetch(`http://localhost:3000/my_collection?mal_id=${manga.mal_id}`);
+            const existingItems = await checkRes.json();
+
+            if (existingItems.length > 0) {
+                // PATCH existing
+                const existingItem = existingItems[0];
+                // Merge arrays and maintain uniqueness, though ideally the user might just replace it based on their selection. Let's just update the ownedVolumes to match the selection exactly.
+                const updatedOwnedVolumes = [...new Set([...(existingItem.ownedVolumes || []), ...selectedVolumes])];
+
+                const patchRes = await fetch(`http://localhost:3000/my_collection/${existingItem.id}`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ownedVolumes: selectedVolumes }) // Replace to match purely what is clicked, per requirement implicitly. Or we can just use the selected array directly if the interface represents absolute truth.
+                });
+
+                if (patchRes.ok) {
+                    toast.success('Volumes atualizados na sua coleção!');
+                    navigate('/'); // Send to Home/My Collection
+                }
+            } else {
+                // POST new
+                const newItem = {
+                    id: crypto.randomUUID(),
+                    mal_id: manga.mal_id,
+                    title: manga.title,
+                    imageUrl: manga.images.jpg.large_image_url,
+                    category: 'Mangás',
+                    ownedVolumes: selectedVolumes,
+                    acquisitionDate: new Date().toISOString()
+                };
+
+                const postRes = await fetch(`http://localhost:3000/my_collection`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newItem)
+                });
+
+                if (postRes.ok) {
+                    toast.success('Obra e volumes salvos na coleção!');
+                    navigate('/');
+                }
             }
-        ).then(() => {
-            // Optional: navigate back or clear selection
-            // navigate('/'); 
-        });
+        } catch (error) {
+            console.error("Erro ao salvar mangá:", error);
+            toast.error("Erro ao salvar volumes no banco de dados.");
+        }
     };
 
     const totalVolumes = manga.volumes || 50;
