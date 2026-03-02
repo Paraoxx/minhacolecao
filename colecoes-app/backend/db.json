@@ -231,6 +231,18 @@
       "isWishlist": false,
       "format": "Digital",
       "dateAdded": "2026-03-01T18:27:21.010Z"
+    },
+    {
+      "id": "6bf1df9d-f5fc-4878-9f01-640dc6430c31",
+      "mal_id": 44485,
+      "title": "Nanatsu no Taizai",
+      "imageUrl": "https://myanimelist.net/images/manga/2/153111l.jpg",
+      "category": "Mangás",
+      "ownedVolumes": [
+        19,
+        20
+      ],
+      "acquisitionDate": "2026-03-02T21:30:29.318Z"
     }
   ],
   "banners": [
