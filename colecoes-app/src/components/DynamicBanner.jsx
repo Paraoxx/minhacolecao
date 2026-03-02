@@ -58,14 +58,14 @@ export function DynamicBanner() {
 
     if (bannerImages.length === 0) {
         return (
-            <div className="relative w-full h-40 md:h-48 overflow-hidden mb-8 shadow-2xl bg-slate-900 border-b border-white/5">
+            <div className="relative w-full h-24 md:h-32 overflow-hidden mb-6 shadow-2xl bg-slate-900 border-b border-white/5">
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-slate-900/60 to-transparent"></div>
             </div>
         );
     }
 
     return (
-        <div className="relative w-full h-40 md:h-48 overflow-hidden mb-8 shadow-2xl bg-slate-900">
+        <div className="relative w-full h-24 md:h-32 overflow-hidden mb-4 shadow-2xl bg-slate-900">
             {/* Background Image with AnimatePresence to handle cross-fades */}
             <AnimatePresence mode="popLayout">
                 <motion.img
