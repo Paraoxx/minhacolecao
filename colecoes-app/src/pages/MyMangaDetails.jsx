@@ -5,59 +5,43 @@ import { ArrowLeft, Check } from "lucide-react";
 export function MyMangaDetails() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const [collectionItem, setCollectionItem] = useState(null);
+    const [manga, setManga] = useState(null);
     const [mangaData, setMangaData] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setIsLoading(true);
+        setLoading(true);
         // Execute the parallel fetches
         Promise.all([
             fetch(`http://localhost:3000/my_collection?mal_id=${id}`).then(res => res.json()),
             fetch(`https://api.jikan.moe/v4/manga/${id}`).then(res => res.json())
         ])
             .then(([colData, jikanData]) => {
-                if (colData.length > 0) {
-                    setCollectionItem(colData[0]);
+                if (colData && colData.length > 0) {
+                    setManga(colData[0]);
+                } else {
+                    setManga(null);
                 }
-                if (jikanData.data) {
+                if (jikanData && jikanData.data) {
                     setMangaData(jikanData.data);
                 }
-                setIsLoading(false);
+                setLoading(false);
             })
             .catch(err => {
                 console.error("Erro ao carregar detalhes:", err);
-                setIsLoading(false);
+                setLoading(false);
             });
     }, [id]);
 
-    if (isLoading) {
-        return (
-            <div className="w-full min-h-screen flex justify-center items-center bg-anime-bg bg-fixed">
-                <p className="text-white font-black italic text-2xl uppercase tracking-widest animate-pulse drop-shadow-[2px_2px_0_#dc2626]">
-                    Acessando Database...
-                </p>
-            </div>
-        );
+    if (loading) {
+        return <div className="text-white text-center mt-10">Carregando sua coleção...</div>;
     }
 
-    if (!collectionItem || !mangaData) {
-        return (
-            <div className="w-full min-h-screen flex flex-col justify-center items-center bg-anime-bg">
-                <p className="text-white font-black italic text-2xl uppercase tracking-widest mb-4">
-                    Obra não encontrada na sua coleção.
-                </p>
-                <button
-                    onClick={() => navigate('/')}
-                    className="bg-red-600 text-black px-6 py-2 font-black uppercase tracking-widest border-2 border-black hover:bg-white hover:text-red-600 transition-colors transform -skew-x-6 shadow-[4px_4px_0_#fff]"
-                >
-                    Voltar
-                </button>
-            </div>
-        );
+    if (!manga) {
+        return <div className="text-white text-center mt-10">Mangá não encontrado na coleção.</div>;
     }
 
-    const ownedVolumes = collectionItem.ownedVolumes || [];
+    const ownedVolumes = manga.ownedVolumes || [];
     // Sort to display them in order
     const sortedOwnedVolumes = [...ownedVolumes].sort((a, b) => a - b);
 
@@ -79,36 +63,36 @@ export function MyMangaDetails() {
                     style={{ clipPath: "polygon(1% 0%, 100% 0%, 99% 100%, 0% 100%)" }}>
 
                     <img
-                        src={collectionItem.imageUrl || mangaData.images.jpg.large_image_url}
-                        alt={collectionItem.title}
+                        src={manga.imageUrl || mangaData?.images?.jpg?.large_image_url}
+                        alt={manga.title}
                         className="w-48 md:w-64 h-auto object-cover border-4 border-black mx-auto md:mx-0 shadow-[4px_4px_0_rgba(0,0,0,0.5)] transform skew-x-2"
                     />
 
                     <div className="flex flex-col flex-1 transform skew-x-2">
                         <div className="flex items-center gap-4 mb-2">
                             <h1 className="text-3xl md:text-5xl font-black italic text-white uppercase tracking-tighter drop-shadow-[2px_2px_0_#dc2626] leading-tight">
-                                {collectionItem.title}
+                                {manga.title}
                             </h1>
                         </div>
                         <h2 className="text-gray-400 font-bold tracking-widest text-sm mb-4">
-                            Sua Coleção • Adquirido em {new Date(collectionItem.acquisitionDate).toLocaleDateString('pt-BR')}
+                            Sua Coleção • Adquirido em {new Date(manga.acquisitionDate).toLocaleDateString('pt-BR')}
                         </h2>
 
                         <div className="flex gap-4 mb-6 text-sm font-bold uppercase tracking-widest">
                             <span className="bg-red-900 border border-red-500 text-white px-3 py-1">
-                                {ownedVolumes.length} Volumes Adquiridos
+                                {manga.ownedVolumes?.length || 0} Volumes Adquiridos
                             </span>
                             <span className="bg-black text-white px-3 py-1 border border-white/20">
-                                Total Oficial: {mangaData.volumes || '?'}
+                                Total Oficial: {mangaData?.volumes || '?'}
                             </span>
                         </div>
 
                         <p className="text-gray-300 text-sm md:text-base leading-relaxed line-clamp-4 lg:line-clamp-none mb-8 bg-black/40 p-4 border-l-4 border-red-600 shadow-inner">
-                            {mangaData.synopsis}
+                            {mangaData?.synopsis}
                         </p>
 
                         <button
-                            onClick={() => navigate(`/manga/${mangaData.mal_id}`)}
+                            onClick={() => navigate(`/manga/${mangaData?.mal_id || manga.mal_id}`)}
                             className="mt-auto px-8 py-4 bg-transparent text-white font-black uppercase tracking-widest text-lg border-2 border-white hover:bg-white hover:text-black transition-all shadow-[6px_6px_0_#dc2626] transform -skew-x-6 active:scale-95 w-full md:w-max self-start"
                         >
                             Comprar Novos Volumes
@@ -138,7 +122,7 @@ export function MyMangaDetails() {
                                     style={{ clipPath: "polygon(4% 0%, 100% 0%, 96% 100%, 0% 100%)" }}
                                 >
                                     <img
-                                        src={collectionItem.imageUrl || mangaData.images.jpg.large_image_url}
+                                        src={manga.imageUrl || mangaData?.images?.jpg?.large_image_url}
                                         alt={`Volume ${volNum}`}
                                         className="w-full h-full object-cover group-hover:brightness-110 transition-all duration-300"
                                     />
